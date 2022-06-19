@@ -32,6 +32,8 @@ namespace Electricity_Supplier.DataAccess.Entities
 
         public string Email { get; set; }
 
+        public List<Customer> Customers { get; set; }
+
         public List<Contract> Contracts { get; set; }
 
         public SalesManager(string firstName, string lastName, string qualification, string phoneNumber, string email)
@@ -42,6 +44,7 @@ namespace Electricity_Supplier.DataAccess.Entities
             Qualification = qualification;
             PhoneNumber = phoneNumber;
             Email = email;
+            Customers = new List<Customer>();
             Contracts = new List<Contract>();
         }
     }

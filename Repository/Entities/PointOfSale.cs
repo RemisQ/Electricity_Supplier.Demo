@@ -17,18 +17,21 @@ namespace Electricity_Supplier.DataAccess.Entities
         public string Address { get; set; }
         public List<SalesManager> SalesManagers { get; set; }
 
+        public List<Customer> Customers { get; set; }
+
         public PointOfSale(int id, string name, string address)
         {
             Id = id;
             Name = name;
             Address = address;
         }
-        public PointOfSale(int id, string name, string address, List<SalesManager> salesManagers)
+        public PointOfSale(int id, string name, string address, List<SalesManager> salesManagers, List<Customer> customers)
         {
             Id = id;
             Name = name;
             Address = address;
             SalesManagers = salesManagers;
+            Customers = customers;  
         }
     }
 }

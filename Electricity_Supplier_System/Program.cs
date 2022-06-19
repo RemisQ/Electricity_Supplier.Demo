@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Electricity_Supplier_System
+namespace Electricity_Supplier.Form
 {
     internal static class Program
     {
