@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace Electricity_Supplier.DataAccess.Entities
         [Required]
         [Key]
         public Guid Id { get; set; }
+
+        [Required]
+        [ForeignKey("SalesManager")]
+        public Guid SalesManagerId { get; set; }
+        public SalesManager SalesManager { get; set; }
 
         [Required]
         public string Name { get; set; }

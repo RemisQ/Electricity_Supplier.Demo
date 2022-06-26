@@ -20,6 +20,11 @@ namespace Electricity_Supplier.DataAccess.Entities
         public SalesManager SalesManager { get; set; }
 
         [Required]
+        [ForeignKey("PointOfSale")]
+        public int PointOfSaleId { get; set; }
+        public PointOfSale PointOfSale { get; set; }
+
+        [Required]
         [ForeignKey("Customer")]
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }

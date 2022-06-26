@@ -17,7 +17,7 @@ namespace Electricity_Supplier.DataAccess.Entities
         public string Address { get; set; }
         public List<SalesManager> SalesManagers { get; set; }
 
-        public List<Customer> Customers { get; set; }
+        public List<Contract> Contracts { get; set; }
 
         public PointOfSale(int id, string name, string address)
         {
@@ -25,13 +25,13 @@ namespace Electricity_Supplier.DataAccess.Entities
             Name = name;
             Address = address;
         }
-        public PointOfSale(int id, string name, string address, List<SalesManager> salesManagers, List<Customer> customers)
+        public PointOfSale(int id, string name, string address, List<SalesManager> salesManagers, List<Contract> contracts)
         {
             Id = id;
             Name = name;
             Address = address;
             SalesManagers = salesManagers;
-            Customers = customers;  
+            Contracts = contracts;  
         }
     }
 }
