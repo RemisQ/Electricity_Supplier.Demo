@@ -47,5 +47,17 @@ namespace Electricity_Supplier.DataAccess.Entities
             Customers = new List<Customer>();
             Contracts = new List<Contract>();
         }
+        public SalesManager(int pointOfSaleId, string firstName, string lastName, string qualification, string phoneNumber, string email)
+        {
+            Id = Guid.NewGuid();
+            PointOfSaleId = pointOfSaleId;
+            FirstName = firstName;
+            LastName = lastName;
+            Qualification = qualification;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Customers = new List<Customer>();
+            Contracts = new List<Contract>();
+        }
     }
 }

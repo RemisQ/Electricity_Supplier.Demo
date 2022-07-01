@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Electricity_Supplier.DataAccess.Migrations
 {
     [DbContext(typeof(ElectricitySupplierDbContext))]
-    [Migration("20220619163313_Initial")]
-    partial class Initial
+    [Migration("20220627194905_Initial3")]
+    partial class Initial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,15 +40,20 @@ namespace Electricity_Supplier.DataAccess.Migrations
                     b.Property<int>("ObjectNumber")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PointOfSaleId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SalesManagerId")
+                    b.Property<Guid?>("SalesManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("PointOfSaleId");
 
                     b.HasIndex("ProductId");
 
@@ -78,15 +83,10 @@ namespace Electricity_Supplier.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PointOfSaleId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SalesManagerId")
+                    b.Property<Guid>("SalesManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PointOfSaleId");
 
                     b.HasIndex("SalesManagerId");
 
@@ -186,34 +186,34 @@ namespace Electricity_Supplier.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Electricity_Supplier.DataAccess.Entities.PointOfSale", null)
+                        .WithMany("Contracts")
+                        .HasForeignKey("PointOfSaleId");
+
                     b.HasOne("Electricity_Supplier.DataAccess.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Electricity_Supplier.DataAccess.Entities.SalesManager", "SalesManager")
+                    b.HasOne("Electricity_Supplier.DataAccess.Entities.SalesManager", null)
                         .WithMany("Contracts")
-                        .HasForeignKey("SalesManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalesManagerId");
 
                     b.Navigation("Customer");
 
                     b.Navigation("Product");
-
-                    b.Navigation("SalesManager");
                 });
 
             modelBuilder.Entity("Electricity_Supplier.DataAccess.Entities.Customer", b =>
                 {
-                    b.HasOne("Electricity_Supplier.DataAccess.Entities.PointOfSale", null)
+                    b.HasOne("Electricity_Supplier.DataAccess.Entities.SalesManager", "SalesManager")
                         .WithMany("Customers")
-                        .HasForeignKey("PointOfSaleId");
+                        .HasForeignKey("SalesManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Electricity_Supplier.DataAccess.Entities.SalesManager", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("SalesManagerId");
+                    b.Navigation("SalesManager");
                 });
 
             modelBuilder.Entity("Electricity_Supplier.DataAccess.Entities.SalesManager", b =>
@@ -234,7 +234,7 @@ namespace Electricity_Supplier.DataAccess.Migrations
 
             modelBuilder.Entity("Electricity_Supplier.DataAccess.Entities.PointOfSale", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("Contracts");
 
                     b.Navigation("SalesManagers");
                 });

@@ -18,7 +18,7 @@ namespace Electricity_Supplier.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(@"Data Source=ASUS\SQLEXPRESS;Initial Catalog=Electricity_Supplier;Integrated Security=True");
+            builder.UseSqlServer(@"Data Source=ASUS\SQLEXPRESS;Initial Catalog=Electricity;Integrated Security=True");
         }
     }
 }

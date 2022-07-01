@@ -4,14 +4,16 @@ using Electricity_Supplier.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Electricity_Supplier.DataAccess.Migrations
 {
     [DbContext(typeof(ElectricitySupplierDbContext))]
-    partial class ElectricitySupplierDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220626194346_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

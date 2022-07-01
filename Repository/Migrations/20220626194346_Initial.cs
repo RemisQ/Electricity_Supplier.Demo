@@ -66,28 +66,21 @@ namespace Electricity_Supplier.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SalesManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PointOfSaleId = table.Column<int>(type: "int", nullable: true),
-                    SalesManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customers_PointOfSales_PointOfSaleId",
-                        column: x => x.PointOfSaleId,
-                        principalTable: "PointOfSales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Customers_SalesManagers_SalesManagerId",
                         column: x => x.SalesManagerId,
                         principalTable: "SalesManagers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,12 +88,13 @@ namespace Electricity_Supplier.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SalesManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ObjectNumber = table.Column<int>(type: "int", nullable: false),
-                    ObjectAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ObjectAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PointOfSaleId = table.Column<int>(type: "int", nullable: true),
+                    SalesManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,6 +106,12 @@ namespace Electricity_Supplier.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Contracts_PointOfSales_PointOfSaleId",
+                        column: x => x.PointOfSaleId,
+                        principalTable: "PointOfSales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Contracts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
@@ -122,13 +122,18 @@ namespace Electricity_Supplier.DataAccess.Migrations
                         column: x => x.SalesManagerId,
                         principalTable: "SalesManagers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contracts_CustomerId",
                 table: "Contracts",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_PointOfSaleId",
+                table: "Contracts",
+                column: "PointOfSaleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contracts_ProductId",
@@ -139,11 +144,6 @@ namespace Electricity_Supplier.DataAccess.Migrations
                 name: "IX_Contracts_SalesManagerId",
                 table: "Contracts",
                 column: "SalesManagerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_PointOfSaleId",
-                table: "Customers",
-                column: "PointOfSaleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_SalesManagerId",

@@ -14,15 +14,15 @@ namespace Electricity_Supplier.DataAccess.Entities
         [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        [ForeignKey("SalesManager")]
-        public Guid SalesManagerId { get; set; }
-        public SalesManager SalesManager { get; set; }
+       // [Required]
+       // [ForeignKey("SalesManager")]
+       // public Guid SalesManagerId { get; set; }
+       // public SalesManager SalesManager { get; set; }
 
-        [Required]
-        [ForeignKey("PointOfSale")]
-        public int PointOfSaleId { get; set; }
-        public PointOfSale PointOfSale { get; set; }
+       // [Required]
+      //  [ForeignKey("PointOfSale")]
+      //  public int PointOfSaleId { get; set; }
+      //  public PointOfSale PointOfSale { get; set; }
 
         [Required]
         [ForeignKey("Customer")]
